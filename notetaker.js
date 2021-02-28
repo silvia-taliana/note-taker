@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'))
+});
+
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'))
 });
@@ -21,6 +25,11 @@ app.get('/api/notes', (req, res) => {
     res.json(note);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'))
+});
+
+// function to write new notes
 app.post('/api/notes', (req, res) => {
 
     // reading db.json file
@@ -30,25 +39,16 @@ app.post('/api/notes', (req, res) => {
         }
         else {
             note = JSON.parse(data);
-            // console.log(note);
         }
     });
 
-    const newNote = req.body;
-    newNote.id = uniqid();
-    note.push(newNote);
+    const newNote = req.body; // getting user input
+    newNote.id = uniqid(); // adding id to note
+    note.push(newNote); // pushing new note to array
     console.log(note);
 
-    fs.writeFileSync(db, JSON.stringify(note));
+    fs.writeFileSync(db, JSON.stringify(note)); // writing note to db.json
     res.json(note);
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'))
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'))
 });
 
 // Listener
