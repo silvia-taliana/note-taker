@@ -33,22 +33,27 @@ app.get('*', (req, res) => {
 app.post('/api/notes', (req, res) => {
 
     // reading db.json file
-    fs.readFileSync(db, (err, data) => {
+    fs.readFile(db, (err, data) => {
         if (err) {
             console.log("Error");
         }
         else {
             note = JSON.parse(data);
+            const newNote = req.body; // getting user input
+            newNote.id = uniqid(); // adding id to note
+            note.push(newNote); // pushing new note to array
+            console.log(note);
+
+            fs.writeFile(db, JSON.stringify(note), (err) => {
+                if (err) {
+                    console.log("Error");
+                }
+                else {
+                    res.json(note);
+                }
+            }); // writing note to db.json
         }
     });
-
-    const newNote = req.body; // getting user input
-    newNote.id = uniqid(); // adding id to note
-    note.push(newNote); // pushing new note to array
-    console.log(note);
-
-    fs.writeFileSync(db, JSON.stringify(note)); // writing note to db.json
-    res.json(note);
 });
 
 // Listener
