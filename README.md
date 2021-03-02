@@ -3,7 +3,7 @@
 ![badge](https://img.shields.io/badge/License-MIT-Green)
 
 ## Description
-The aim of this project was to modify a code for a note taking application that allows the user to write and save notes. The front end of the code was provided for this project, so it was completed all in the backend. The application works by using a JSON file to save and retrieve data from.  
+The aim of this project was to modify a code for a note taking application that allows the user to write and save notes. The front end of the code was provided for this project, so it was completed all in the backend. The application works by using a JSON file to save and retrieve data from. To view the deployed application, click [here](https://vast-thicket-71086.herokuapp.com).
 
 ## Table of Contents 
 
